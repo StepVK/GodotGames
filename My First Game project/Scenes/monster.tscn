@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://h25rsv4q7er6"]
+
+[ext_resource type="Script" uid="uid://dghdex2of0j33" path="res://Scripts/monster.gd" id="1_i44lo"]
+[ext_resource type="Texture2D" uid="uid://d2617h7h72e8c" path="res://Assets/kenney_simplified-platformer-pack/duck.png" id="1_xhoai"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i44lo"]
+radius = 32.0
+
+[node name="Monster" type="RigidBody2D" unique_id=881270938]
+position = Vector2(-1, 0)
+collision_layer = 4
+collision_mask = 10
+mass = 5.0
+contact_monitor = true
+max_contacts_reported = 99
+script = ExtResource("1_i44lo")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1726077021]
+position = Vector2(5.9604645e-08, 0)
+scale = Vector2(0.50775194, 0.484375)
+texture = ExtResource("1_xhoai")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2021612371]
+shape = SubResource("CircleShape2D_i44lo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

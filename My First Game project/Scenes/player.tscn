@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://be8qbmt0fe144"]
+
+[ext_resource type="Script" uid="uid://c3ubxpp10k6x6" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://cbhwjst000uxd" path="res://Assets/Zombie/Tilesheet/character_zombie_sheet.png" id="1_v0iea"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
+atlas = ExtResource("1_v0iea")
+region = Rect2(0, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6t5aa"]
+atlas = ExtResource("1_v0iea")
+region = Rect2(672, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgqql"]
+atlas = ExtResource("1_v0iea")
+region = Rect2(768, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkybt"]
+atlas = ExtResource("1_v0iea")
+region = Rect2(672, 384, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3wgy"]
+atlas = ExtResource("1_v0iea")
+region = Rect2(480, 256, 96, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3smsa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvnsp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6t5aa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgqql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkybt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3wgy")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8erm5"]
+size = Vector2(39, 53)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
+size = Vector2(55, 99)
+
+[node name="Player" type="CharacterBody2D" unique_id=1903809424]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_cvnsp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=764718101]
+position = Vector2(-1, -65)
+sprite_frames = SubResource("SpriteFrames_3smsa")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="RightEye" type="Marker2D" parent="AnimatedSprite2D" unique_id=402474983]
+position = Vector2(-7.221817, 0.2839737)
+
+[node name="LeftEye" type="Marker2D" parent="AnimatedSprite2D" unique_id=1476204075]
+position = Vector2(12.3647995, 3.845169)
+
+[node name="PhysicsCollisionShape2D" type="CollisionShape2D" parent="." unique_id=119411356]
+position = Vector2(-0.5, -26.5)
+shape = SubResource("RectangleShape2D_8erm5")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2135897835]
+collision_layer = 2
+collision_mask = 4
+
+[node name="HitBoxCollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=154885331]
+position = Vector2(0.5, -49.5)
+shape = SubResource("RectangleShape2D_cvnsp")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

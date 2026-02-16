@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://2yvq6yiiep7y"]
+
+[ext_resource type="Script" uid="uid://diogpnw6nc1vc" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="Texture2D" uid="uid://23qhj27byhqj" path="res://Assets/MainMenuBackground.jpg" id="2_48xlc"]
+
+[node name="MainMenu" type="Control" unique_id=1441910584]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_28flt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1683819949]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=604125955]
+offset_right = 1024.0
+offset_bottom = 1024.0
+texture = ExtResource("2_48xlc")
+expand_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=1362066281]
+offset_left = 476.0
+offset_top = 376.0
+offset_right = 532.0
+offset_bottom = 442.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer" unique_id=1383798730]
+layout_mode = 2
+
+[node name="Button_start" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1081485880]
+layout_mode = 2
+text = "START"
+
+[node name="Button_exit" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=2047630555]
+layout_mode = 2
+text = "EXIT"
+
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Button_start" to="." method="_on_button_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Button_exit" to="." method="_on_button_exit_pressed"]
