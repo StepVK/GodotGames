@@ -12,8 +12,8 @@ code = "shader_type spatial;
 uniform sampler2D albedo : source_color;
 void fragment() {
 	vec2 uv = UV;
-	// Rotate 90 degrees and tile 8 times along the rotated axis
-	uv = vec2(uv.y * 8.0, 1.0 - uv.x);
+	// Rotate 90 degrees and tile 2 times along the rotated axis
+	uv = vec2(uv.y * 2.0, 1.0 - uv.x);
 	// Wrap around to keep within [0, 1] range after tiling
 	uv.x = fract(uv.x);
 	ALBEDO = texture(albedo, uv).rgb;
