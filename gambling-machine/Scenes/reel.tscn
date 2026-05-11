@@ -1,12 +1,30 @@
 [gd_scene format=3 uid="uid://cwgbwd2m41t85"]
 
 [ext_resource type="Script" uid="uid://bidv8ypbr0vjm" path="res://Scripts/reel.gd" id="1_o31an"]
+[ext_resource type="Texture2D" uid="uid://c987654321def" path="res://Assets/icons.jpg" id="2_1_png"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_p7acc"]
 height = 1.0
 radius = 0.955
 
+[sub_resource type="Shader" id="Shader_rotuv"]
+code = "shader_type spatial;
+uniform sampler2D albedo : source_color;
+void fragment() {
+	vec2 uv = UV;
+	// Rotate 90 degrees and tile 8 times along the rotated axis
+	uv = vec2(uv.y * 8.0, 1.0 - uv.x);
+	// Wrap around to keep within [0, 1] range after tiling
+	uv.x = fract(uv.x);
+	ALBEDO = texture(albedo, uv).rgb;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_reeltx"]
+shader = SubResource("Shader_rotuv")
+shader_parameter/albedo = ExtResource("2_1_png")
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_obntf"]
+material = SubResource("ShaderMaterial_reeltx")
 top_radius = 0.9
 bottom_radius = 0.9
 height = 1.8
