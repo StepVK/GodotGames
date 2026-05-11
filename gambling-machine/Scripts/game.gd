@@ -12,8 +12,8 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed('spin_left'):
-		$"Level/One-Armed Bandit".spin_the_wheels(0,0.5)
+		$"Level/One-Armed Bandit".spin_the_wheels(0, 50.0)
 	if event.is_action_pressed('spin_middle'):
-		$"Level/One-Armed Bandit".spin_the_wheels(1,0.5)
+		$"Level/One-Armed Bandit".spin_the_wheels(1, 50.0)
 	if event.is_action_pressed('spin_right'):
-		$"Level/One-Armed Bandit".spin_the_wheels(2,0.5)
+		$"Level/One-Armed Bandit".spin_the_wheels(2, 50.0)

@@ -12,7 +12,7 @@ size = Vector3(3, 0.001, 3)
 [node name="One-Armed Bandit" type="Node3D" unique_id=399936659]
 script = ExtResource("1_h8gwt")
 
-[node name="Base" type="RigidBody3D" parent="." unique_id=1903479682]
+[node name="Base" type="StaticBody3D" parent="." unique_id=1903479682]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Base" unique_id=285024540]
 shape = SubResource("BoxShape3D_7eeb6")
