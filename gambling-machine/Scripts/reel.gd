@@ -11,18 +11,24 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if abs($Reel_cylinder.angular_velocity.x) < 0.5 and $Reel_cylinder.angular_velocity.x != 0:
-		var current_rotation = $Reel_cylinder.rotation.x
+	var speed = abs($Reel_cylinder.angular_velocity.x)
+	
+	# If we are in the slow-speed "cruising" range, check for stopping point
+	if speed < 1.5 and speed > 0.1:
+		var current_rotation = fmod($Reel_cylinder.rotation.x, 2 * PI)
+		if current_rotation < 0:
+			current_rotation += 2 * PI
+			
 		var angle_per_icon = PI / 4
-		var nearest_angle = round(current_rotation / angle_per_icon) * angle_per_icon
-
-		$Reel_cylinder.angular_damp = 20.0
+		var half_angle = angle_per_icon / 2.0
+		var remainder = fmod(current_rotation, angle_per_icon)
 		
-		# If it's close enough, stop it
-		if abs(current_rotation - nearest_angle) < 0.05 and abs($Reel_cylinder.angular_velocity.x) < 0.1:
+		# If we are passing the center of a symbol
+		# The center is at half_angle (PI / 8)
+		if abs(remainder - half_angle) < 0.05:
 			$Reel_cylinder.angular_velocity = Vector3.ZERO
+			# Reset damp to normal values
 			$Reel_cylinder.angular_damp = 1.0 + randf_range(-0.2, 0.2)
-			$Reel_cylinder.rotation.x = nearest_angle
 	
 func spin_the_wheel(spin_power):
 	# Vector3(X, Y, Z) - apply torque along the rotation axis (World X or Z based on setup)
