@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://njlwoyh2g14x"]
+
+[ext_resource type="PackedScene" uid="uid://cd5ieg2jximo8" path="res://Assets/Coin/coin.blend" id="1_2qo34"]
+[ext_resource type="Texture2D" uid="uid://bwlb7f2w7ovju" path="res://Assets/Coin/coin_gold_bitcoin_gemini.png" id="2_jgi06"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g537i"]
+albedo_texture = ExtResource("2_jgi06")
+
+[node name="Coin" unique_id=150859833 instance=ExtResource("1_2qo34")]
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1997433809) index="0" unique_id=215953303]
+bones/0/rotation = Quaternion(0, 0.93523026, 0, 0.35404)
+
+[node name="Coin_tris" parent="Armature/Skeleton3D" index="0" unique_id=1286218325]
+material_override = SubResource("StandardMaterial3D_g537i")

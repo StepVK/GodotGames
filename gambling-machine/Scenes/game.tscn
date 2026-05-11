@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://bol8y4d0eyjfq"]
+
+[ext_resource type="Script" uid="uid://cleigfbgwjhlg" path="res://Scripts/game.gd" id="1_1l0tm"]
+[ext_resource type="Script" uid="uid://cikns206fi4am" path="res://Scripts/player.gd" id="1_ebmjs"]
+[ext_resource type="Texture2D" uid="uid://mssr37k60dhm" path="res://Assets/earth-texture.png" id="2_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://1t4wfw7m37mi" path="res://Scenes/stairs.tscn" id="3_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://d18wvylpqp5ra" path="res://Assets/Graveyard/GLB format/road.glb" id="4_wowpa"]
+[ext_resource type="PackedScene" uid="uid://d4ca5yw0xfnd8" path="res://Assets/Graveyard/GLB format/stone-wall.glb" id="5_i6g32"]
+[ext_resource type="PackedScene" uid="uid://0qqc6fx6wri3" path="res://Scenes/one_armed_bandit.tscn" id="6_i6g32"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2poj3"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_ebmjs"]
+sky_material = SubResource("ProceduralSkyMaterial_2poj3")
+
+[sub_resource type="Environment" id="Environment_qxrlw"]
+background_mode = 2
+sky = SubResource("Sky_ebmjs")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2poj3"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ebmjs"]
+points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4760704, 0.49888408, 0.16971254, 0.5591441, 0.46417162, 0.23105091, -0.8035912, 0.32045516, 0.40741014, 0.651043, -0.24352328, -0.4827893, 0.59484255, 0.082213186, -0.3628679, -0.68231165, 0.2896967, 0.46904355, -0.65452886, -0.06627126, -0.12744367, 0.8427015, -0.33810276, -0.39343542, -0.6839421, -0.24471663, 0.43825462, 0.62330925, 0.20084947, 0.0841477, 0.977454, 0.11479468, -0.06820232, -0.9764576, -0.12927033, 0.20054972, -0.56312895, -0.4514544, -0.18552664, 0.59545326, -0.4534751, -0.27336287, 0.59226835, 0.40775412, -0.0069364863, -0.47682306, 0.49966025, 0.37582088, -0.5886136, 0.31695515, 0.111579016, 0.5630594, -0.48117727, -0.41725034, 0.5278656, -0.27049688, -0.48454633, -0.59697217, -0.06650971, -0.27974695, 0.90856135, 0.05333608, -0.25019687, -0.8807117, 0.20531891, 0.263647, -0.90277094, -0.1273943, 0.29336792, 0.8715263, -0.15719566, 0.3734115, -0.5263189, -0.32824618, 0.4996626, 0.47664148, -0.0068885577, 0.053105574, 0.8750009, 0.32470253, -0.15454252, -0.5908538, 0.4658794, -0.09727988, -0.7823577, -0.39818847, -0.3876489, -0.49817133, 0.31564978, -0.30067965, -0.58799505, -0.38890144)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wrm1d"]
+albedo_texture = ExtResource("2_qxrlw")
+uv1_triplanar = true
+
+[node name="Game" type="Node3D" unique_id=1320963072]
+script = ExtResource("1_1l0tm")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=859948482]
+environment = SubResource("Environment_qxrlw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1948524014]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=2063629235]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_ebmjs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=1278735056]
+mesh = SubResource("CapsuleMesh_2poj3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=50031483]
+shape = SubResource("ConvexPolygonShape3D_ebmjs")
+
+[node name="Head" type="Node3D" parent="Player" unique_id=1990973230]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.6651396, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/Head" unique_id=1867315845]
+
+[node name="Level" type="Node" parent="." unique_id=2084758651]
+
+[node name="Ground" type="CSGBox3D" parent="Level" unique_id=504335810]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0043945313, 0, 16.00661)
+use_collision = true
+size = Vector3(16, 0.001, 48)
+material = SubResource("StandardMaterial3D_wrm1d")
+
+[node name="Stairs" parent="Level" unique_id=1071534935 instance=ExtResource("3_wrm1d")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 12)
+
+[node name="Roads" type="Node" parent="Level" unique_id=1881345873]
+
+[node name="road2" parent="Level/Roads" unique_id=80849219 instance=ExtResource("4_wowpa")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 8)
+
+[node name="road3" parent="Level/Roads" unique_id=1798916402 instance=ExtResource("4_wowpa")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 6)
+
+[node name="road4" parent="Level/Roads" unique_id=115551966 instance=ExtResource("4_wowpa")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 4)
+
+[node name="road5" parent="Level/Roads" unique_id=421292277 instance=ExtResource("4_wowpa")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 2)
+
+[node name="road6" parent="Level/Roads" unique_id=918588687 instance=ExtResource("4_wowpa")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Walls" type="Node3D" parent="Level" unique_id=1831609049]
+
+[node name="stone-wall2" parent="Level/Walls" unique_id=553893876 instance=ExtResource("5_i6g32")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 5, 0, -4)
+
+[node name="stone-wall3" parent="Level/Walls" unique_id=1917050167 instance=ExtResource("5_i6g32")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, -4)
+
+[node name="stone-wall4" parent="Level/Walls" unique_id=407134891 instance=ExtResource("5_i6g32")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -5, 0, -4)
+
+[node name="Walls2" type="Node3D" parent="Level" unique_id=1373272267]
+
+[node name="stone-wall2" parent="Level/Walls2" unique_id=93382502 instance=ExtResource("5_i6g32")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 5, 0, 41)
+
+[node name="stone-wall3" parent="Level/Walls2" unique_id=1563501881 instance=ExtResource("5_i6g32")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 41)
+
+[node name="stone-wall4" parent="Level/Walls2" unique_id=36068247 instance=ExtResource("5_i6g32")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -5, 0, 41)
+
+[node name="Walls3" type="Node3D" parent="Level" unique_id=1951779212]
+
+[node name="stone-wall2" parent="Level/Walls3" unique_id=729544834 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 36)
+
+[node name="stone-wall3" parent="Level/Walls3" unique_id=1636193626 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 31)
+
+[node name="stone-wall6" parent="Level/Walls3" unique_id=738739968 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 26)
+
+[node name="stone-wall7" parent="Level/Walls3" unique_id=1228077464 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 21)
+
+[node name="stone-wall8" parent="Level/Walls3" unique_id=669290034 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 16)
+
+[node name="stone-wall9" parent="Level/Walls3" unique_id=827937294 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 11)
+
+[node name="stone-wall10" parent="Level/Walls3" unique_id=1412944616 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 6)
+
+[node name="stone-wall11" parent="Level/Walls3" unique_id=1576162643 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 1)
+
+[node name="stone-wall12" parent="Level/Walls3" unique_id=1358148744 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, -4)
+
+[node name="Walls4" type="Node3D" parent="Level" unique_id=1623088005]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 32)
+
+[node name="stone-wall2" parent="Level/Walls4" unique_id=1562581999 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 36)
+
+[node name="stone-wall3" parent="Level/Walls4" unique_id=2060532032 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 31)
+
+[node name="stone-wall6" parent="Level/Walls4" unique_id=454243803 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 26)
+
+[node name="stone-wall7" parent="Level/Walls4" unique_id=1417649551 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 21)
+
+[node name="stone-wall8" parent="Level/Walls4" unique_id=279312461 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 16)
+
+[node name="stone-wall9" parent="Level/Walls4" unique_id=1370001013 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 11)
+
+[node name="stone-wall10" parent="Level/Walls4" unique_id=20632186 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 6)
+
+[node name="stone-wall11" parent="Level/Walls4" unique_id=358145959 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, 1)
+
+[node name="stone-wall12" parent="Level/Walls4" unique_id=82082274 instance=ExtResource("5_i6g32")]
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, 6, 0, -4)
+
+[node name="One-Armed Bandit" parent="Level" unique_id=399936659 instance=ExtResource("6_i6g32")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 25)
