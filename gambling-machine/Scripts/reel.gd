@@ -10,7 +10,7 @@ func _ready() -> void:
 	$Reel_cylinder.mass = 1.0 + randf_range(-0.1, 0.1)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var speed = abs($Reel_cylinder.angular_velocity.x)
 	
 	# If we are in the slow-speed "cruising" range, check for stopping point

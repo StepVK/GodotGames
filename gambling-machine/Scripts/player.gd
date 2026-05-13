@@ -66,14 +66,14 @@ func _physics_process(delta: float) -> void:
 	if is_on_wall() and direction:
 		handle_step_up(delta, direction)
 	
-func handle_step_up(delta: float, direction: Vector3) -> void:
+func handle_step_up(_delta: float, direction: Vector3) -> void:
 	# this func is pure garbage, don't reuse
 	print("Checking for step")
 	var up_vec = Vector3.UP * STEP_HEIGHT
 	var forward_vec = direction * STEP_HEIGHT
 
-	var result_up = move_and_collide(up_vec, true) # 'true' means it's just a test
-	var result_forward = move_and_collide(forward_vec, true)
+	move_and_collide(up_vec, true) # 'true' means it's just a test
+	move_and_collide(forward_vec, true)
 
 	var final_pos = global_position + up_vec + forward_vec
 	global_position = final_pos

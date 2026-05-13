@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cwgbwd2m41t85"]
 
 [ext_resource type="Script" uid="uid://bidv8ypbr0vjm" path="res://Scripts/reel.gd" id="1_o31an"]
-[ext_resource type="Texture2D" uid="uid://c987654321def" path="res://Assets/icons.jpg" id="2_1_png"]
+[ext_resource type="Texture2D" uid="uid://bobvhu5f6d22f" path="res://Assets/icons.jpg" id="2_1_png"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_p7acc"]
 height = 1.0
@@ -76,6 +76,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 0, 0)
 shape = SubResource("BoxShape3D_o31an")
 
 [node name="HingeJoint3D" type="HingeJoint3D" parent="."]
-node_a = NodePath("Reel_cylinder")
-node_b = NodePath("Supports")
+node_a = NodePath("../Reel_cylinder")
+node_b = NodePath("../Supports")
 angular_limit/enable = false
